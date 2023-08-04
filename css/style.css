@@ -18,6 +18,7 @@ body {
     width: 19%;
     overflow-x:hidden;
     margin: 0 8px;
+    word-wrap: break-word;
 }
 
 .main-buttons {

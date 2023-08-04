@@ -1,13 +1,13 @@
 const notesEl = document.querySelector('.notes');
 const addBtn = document.querySelector('.note-add')
 
-function createNote(name, content, created, dates, category) {
+function createNote({name, content, created, dates, category}) {
     const noteEl = document.createElement('div');
     noteEl.classList.add('note');
     noteEl.innerHTML = `
     <div class="note-style">
       <p id="note-name">${name}</p>
-      <input id="note-name-textarea" class="hidden"></input>
+      <input id="note-name-textarea" class="hidden"></input>    
     </div>
     <div class="note-style">
         <p id="note-created">${created}</p>
@@ -70,11 +70,14 @@ function createNote(name, content, created, dates, category) {
         categoryEl.innerText = e.target.value;
     });
 
-    nameInputEl.addEventListener('input', (e) => {
-        let datesFromName = nameEl.innerText;
+    contentInputEl.addEventListener('input', updateDatesList);
+    contentInputEl.addEventListener('blur', updateDatesList);
+
+    function updateDatesList() {
+        let datesFromContent = contentEl.innerText;
         const dateRegex = /\d{2}\.\d{2}\.\d{4}/g;
-        datesEl.innerText = datesFromName.match(dateRegex);
-    });
+        datesEl.innerText = datesFromContent.match(dateRegex);
+    }
 
     return noteEl;
 }
@@ -94,6 +97,12 @@ addBtn.addEventListener('click', (e) => {
         day = `0` + day.toString();
     }
     let todayFormatted = day + '.' + month + '.' + year;
-    const el = createNote("Note", "Type here", todayFormatted, "", "");
+    const el = createNote({
+        name: "Note",
+        content: "Type here",
+        created: todayFormatted,
+        dates: "",
+        category: "",
+    });
     notesEl.appendChild(el);
 });
