@@ -21,7 +21,6 @@ addBtn.addEventListener('click', (e) => {
         created: todayFormatted,
         dates: "",
         category: "",
-        archived: false,
     });
     notesEl.appendChild(el);
 });

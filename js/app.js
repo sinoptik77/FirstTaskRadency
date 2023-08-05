@@ -4,7 +4,7 @@ const activeNotes = [];
 const archivedNotes = [];
 let currentEditingNote = null;
 
-function createNote({name, content, created, dates, category, archived}) {
+function createNote({name, content, created, dates, category}) {
     const noteEl = document.createElement('div');
     noteEl.classList.add('note');
     noteEl.innerHTML = `
@@ -39,8 +39,6 @@ function createNote({name, content, created, dates, category, archived}) {
         <button class="note-delete"><i class="fa-solid fa-trash"></i></button>
     </div>
   `;
-
-    console.log(archived);
 
     const editBtn = noteEl.querySelector('.note-edit');
     const deleteBtn = noteEl.querySelector('.note-delete');
@@ -100,7 +98,6 @@ function createNote({name, content, created, dates, category, archived}) {
             box.classList.toggle('fa-box-open');
             box.classList.toggle('fa-box');
         }
-        console.log(archived);
     });
 
     noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
