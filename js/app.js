@@ -12,10 +12,10 @@ function createNote({name, content, created, dates, category, archived}) {
       <p id="note-name">${name}</p>
       <input id="note-name-textarea" class="hidden"></input>    
     </div>
-    <div class="note-style">
+    <div class="note-styleB">
         <p id="note-created">${created}</p>
     </div>
-    <div class="note-style">
+    <div class="note-styleB">
         <p id="note-category">${category}</p>
         <select id="note-select-categories" class="hidden" name="categories">
             <option value="Task">Task</option>
@@ -28,13 +28,13 @@ function createNote({name, content, created, dates, category, archived}) {
         <p id="note-content">${content}</p>
         <textarea id="note-content-textarea" class="hidden">${content}</textarea>
     </div>
-    <div class="note-style">
+    <div class="note-styleB">
         <p id="note-dates">${dates}</p>
     </div>
     <div class="main-buttons">
         ${archived ? '<button class="note-unarchive">' +
-        '<i class="fa-solid fa-unarchive"></i></button>' : 
-        '<button class="note-archive"><i class="fa-solid fa-archive"></i></button>'}
+        '<i class="fa-solid fa-box-open"></i></button>' : 
+        '<button class="note-archive"><i class="fa-solid fa-box"></i></button>'}
         <button class="note-edit"><i class="fa-solid fa-pen-to-square"></i></button>
         <button class="note-delete"><i class="fa-solid fa-trash"></i></button>
     </div>

@@ -17,28 +17,31 @@
 </head>
 <body>
 <div class="container">
-    <div class="notes">
-        <div class="header">
-            <div class="note-style-Header">Name</div>
-            <div class="note-style-Header">Created</div>
-            <div class="note-style-Header">Category</div>
-            <div class="note-style-Header">Content</div>
-            <div class="note-style-Header">Dates</div>
-            <div class="main-buttons-Header">
-                <i class="fa-solid fa-pen-to-square"></i>
-                <i class="fa-solid fa-trash"></i>
-            </div>
+    <div class="header">
+        <div class="note-style-Header">Name</div>
+        <div class="note-styleB-Header">Created</div>
+        <div class="note-styleB-Header">Category</div>
+        <div class="note-style-Header">Content</div>
+        <div class="note-styleB-Header">Dates (dd.mm.yyyy)</div>
+        <div class="main-buttons-Header">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-archive"></i>
         </div>
     </div>
+    <div id="active-notes" class="notes">
+    </div>
 </div>
-<div class="button-container">
-    <button class="note-add" type="button">Create Note</button>
-</div>
-<div class="archived-container">
+<div id="archived-notes" class="archived-container hidden">
     <div class="archived-notes">
     </div>
 </div>
+<div class="button-container">
+    <button class="note-switch" type="button">Go to archive</button>
+    <button class="note-add" type="button">Create Note</button>
+</div>
 <script src="js/app.js"></script>
 <script src="js/add.js"></script>
+<script src="js/archive.js"></script>
 </body>
 </html>
