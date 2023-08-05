@@ -12,3 +12,26 @@ switchBtn.addEventListener('click', (e) => {
         switchBtn.innerText = 'Go to archive'
     }
 })
+
+function archiveNote(noteEl) {
+    const index = activeNotes.indexOf(noteEl);
+    if (index !== -1) {
+        activeNotes.splice(index, 1);
+        archivedNotes.push(noteEl);
+        const archivedContainer = document.querySelector('.archived-notes');
+        const archiveBtn = noteEl.querySelector('.note-archive');
+        noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
+        archivedContainer.appendChild(noteEl);
+    }
+}
+
+function unarchiveNote(noteEl) {
+    const index = archivedNotes.indexOf(noteEl);
+    if (index !== -1) {
+        archivedNotes.splice(index, 1);
+        activeNotes.push(noteEl);
+        const archiveBtn = noteEl.querySelector('.note-archive');
+        noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
+        notesEl.appendChild(noteEl);
+    }
+}

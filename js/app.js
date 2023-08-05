@@ -32,13 +32,15 @@ function createNote({name, content, created, dates, category, archived}) {
         <p id="note-dates">${dates}</p>
     </div>
     <div class="main-buttons">
-        ${archived ? '<button class="note-unarchive">' +
-        '<i class="fa-solid fa-box-open"></i></button>' : 
-        '<button class="note-archive"><i class="fa-solid fa-box"></i></button>'}
+        <button class="note-archive">
+        <i id="box" class="fa-solid fa-box"></i>
+        </button>
         <button class="note-edit"><i class="fa-solid fa-pen-to-square"></i></button>
         <button class="note-delete"><i class="fa-solid fa-trash"></i></button>
     </div>
   `;
+
+    console.log(archived);
 
     const editBtn = noteEl.querySelector('.note-edit');
     const deleteBtn = noteEl.querySelector('.note-delete');
@@ -51,6 +53,7 @@ function createNote({name, content, created, dates, category, archived}) {
     const categoryEl = noteEl.querySelector('#note-category')
     const categorySelectEl = noteEl.querySelector('#note-select-categories')
     const datesEl = noteEl.querySelector('#note-dates')
+    const box = noteEl.querySelector('#box')
 
     editBtn.addEventListener('click', (e) => {
         currentEditingNote = noteEl;
@@ -90,9 +93,14 @@ function createNote({name, content, created, dates, category, archived}) {
     archiveBtn.addEventListener('click', (e) => {
         if (activeNotes.includes(noteEl)) {
             archiveNote(noteEl);
+            box.classList.remove('fa-box');
+            box.classList.add('fa-box-open');
         } else if (archivedNotes.includes(noteEl)) {
             unarchiveNote(noteEl);
+            box.classList.toggle('fa-box-open');
+            box.classList.toggle('fa-box');
         }
+        console.log(archived);
     });
 
     noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
@@ -100,31 +108,6 @@ function createNote({name, content, created, dates, category, archived}) {
     activeNotes.push(noteEl);
 
     return noteEl;
-}
-
-
-
-function archiveNote(noteEl) {
-    const index = activeNotes.indexOf(noteEl);
-    if (index !== -1) {
-        activeNotes.splice(index, 1);
-        archivedNotes.push(noteEl);
-        const archivedContainer = document.querySelector('.archived-notes');
-        const archiveBtn = noteEl.querySelector('.note-archive');
-        noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
-        archivedContainer.appendChild(noteEl);
-    }
-}
-
-function unarchiveNote(noteEl) {
-    const index = archivedNotes.indexOf(noteEl);
-    if (index !== -1) {
-        archivedNotes.splice(index, 1);
-        activeNotes.push(noteEl);
-        const archiveBtn = noteEl.querySelector('.note-archive');
-        noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
-        notesEl.appendChild(noteEl);
-    }
 }
 
 function saveEditedNote() {
