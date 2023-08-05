@@ -15,20 +15,22 @@ body {
 }
 
 .note-style {
-    width: 19%;
+    width: 18.5%;
     overflow-x:hidden;
     margin: 0 8px;
     word-wrap: break-word;
 }
 
 .main-buttons {
-    width: 5%;
+    width: 7.5%;
     overflow-x:hidden;
     margin: 0 8px;
+    display: flex;
+    flex-direction: row;
 }
 
 .note-style-Header {
-    width: 19%;
+    width: 18.5%;
     overflow-x:hidden;
     margin: 0 8px;
     color: #FFFFFF;
@@ -36,7 +38,7 @@ body {
 }
 
 .main-buttons-Header {
-    width: 5%;
+    width: 7.5%;
     overflow-x:hidden;
     margin: 0 8px;
     color: #FFFFFF;
@@ -74,6 +76,17 @@ body {
 }
 
 .note-edit {
+    padding: 4px;
+    cursor: pointer;
+}
+
+.note-unarchive {
+    padding: 4px;
+    cursor: pointer;
+    display: none;
+}
+
+.note-archive {
     padding: 4px;
     cursor: pointer;
 }

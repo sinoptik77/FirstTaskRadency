@@ -1,7 +1,10 @@
-const notesEl = document.querySelector('.notes');
 const addBtn = document.querySelector('.note-add')
 
-function createNote({name, content, created, dates, category}) {
+const activeNotes = [];
+const archivedNotes = [];
+let currentEditingNote = null;
+
+function createNote({name, content, created, dates, category, archived}) {
     const noteEl = document.createElement('div');
     noteEl.classList.add('note');
     noteEl.innerHTML = `
@@ -29,14 +32,18 @@ function createNote({name, content, created, dates, category}) {
         <p id="note-dates">${dates}</p>
     </div>
     <div class="main-buttons">
+        ${archived ? '<button class="note-unarchive">' +
+        '<i class="fa-solid fa-unarchive"></i></button>' : 
+        '<button class="note-archive"><i class="fa-solid fa-archive"></i></button>'}
         <button class="note-edit"><i class="fa-solid fa-pen-to-square"></i></button>
         <button class="note-delete"><i class="fa-solid fa-trash"></i></button>
     </div>
-
-  `
+  `;
 
     const editBtn = noteEl.querySelector('.note-edit');
     const deleteBtn = noteEl.querySelector('.note-delete');
+    const archiveBtn = noteEl.querySelector('.note-archive')
+    const unarchiveBtn = noteEl.querySelector('.note-unarchive')
     const nameEl = noteEl.querySelector('#note-name');
     const contentEl = noteEl.querySelector('#note-content');
     const nameInputEl = noteEl.querySelector('#note-name-textarea');
@@ -46,6 +53,7 @@ function createNote({name, content, created, dates, category}) {
     const datesEl = noteEl.querySelector('#note-dates')
 
     editBtn.addEventListener('click', (e) => {
+        currentEditingNote = noteEl;
         nameEl.classList.toggle('hidden');
         contentEl.classList.toggle('hidden');
         nameInputEl.classList.toggle('hidden');
@@ -79,30 +87,60 @@ function createNote({name, content, created, dates, category}) {
         datesEl.innerText = datesFromContent.match(dateRegex);
     }
 
+    archiveBtn.addEventListener('click', (e) => {
+        if (activeNotes.includes(noteEl)) {
+            archiveNote(noteEl);
+        } else if (archivedNotes.includes(noteEl)) {
+            unarchiveNote(noteEl);
+        }
+    });
+
+    noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
+
+    activeNotes.push(noteEl);
+
     return noteEl;
 }
 
-addBtn.addEventListener('click', (e) => {
 
-    const today = new Date();
-    const year = today.getFullYear().toString();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
 
-    if (month.toString().length < 2) {
-        month = `0` + month.toString();
+function archiveNote(noteEl) {
+    const index = activeNotes.indexOf(noteEl);
+    if (index !== -1) {
+        activeNotes.splice(index, 1);
+        archivedNotes.push(noteEl);
+        const archivedContainer = document.querySelector('.archived-notes');
+        const archiveBtn = noteEl.querySelector('.note-archive');
+        noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
+        archivedContainer.appendChild(noteEl);
     }
+}
 
-    if (day.toString().length < 2) {
-        day = `0` + day.toString();
+function unarchiveNote(noteEl) {
+    const index = archivedNotes.indexOf(noteEl);
+    if (index !== -1) {
+        archivedNotes.splice(index, 1);
+        activeNotes.push(noteEl);
+        const archiveBtn = noteEl.querySelector('.note-archive');
+        noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
+        notesEl.appendChild(noteEl);
     }
-    let todayFormatted = day + '.' + month + '.' + year;
-    const el = createNote({
-        name: "Note",
-        content: "Type here",
-        created: todayFormatted,
-        dates: "",
-        category: "",
-    });
-    notesEl.appendChild(el);
-});
+}
+
+function saveEditedNote() {
+    if (currentEditingNote) {
+        const index = activeNotes.indexOf(currentEditingNote);
+        if (index !== -1) {
+            const updatedNote = createNote({
+                name: currentEditingNote.querySelector('#note-name').innerText,
+                content: currentEditingNote.querySelector('#note-content').innerText,
+                created: currentEditingNote.querySelector('#note-created').innerText,
+                dates: currentEditingNote.querySelector('#note-dates').innerText,
+                category: currentEditingNote.querySelector('#note-category').innerText,
+            });
+            activeNotes[index] = updatedNote;
+            currentEditingNote = null;
+        }
+    }
+}
+
