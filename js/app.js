@@ -10,7 +10,7 @@ function createNote({name, content, created, dates, category}) {
     noteEl.innerHTML = `
     <div class="note-style">
       <p id="note-name">${name}</p>
-      <input id="note-name-textarea" class="hidden"></input>    
+      <input id="note-name-textarea" class="hidden">   
     </div>
     <div class="note-styleB">
         <p id="note-created">${created}</p>
@@ -43,7 +43,6 @@ function createNote({name, content, created, dates, category}) {
     const editBtn = noteEl.querySelector('.note-edit');
     const deleteBtn = noteEl.querySelector('.note-delete');
     const archiveBtn = noteEl.querySelector('.note-archive')
-    const unarchiveBtn = noteEl.querySelector('.note-unarchive')
     const nameEl = noteEl.querySelector('#note-name');
     const contentEl = noteEl.querySelector('#note-content');
     const nameInputEl = noteEl.querySelector('#note-name-textarea');
@@ -64,7 +63,21 @@ function createNote({name, content, created, dates, category}) {
     });
 
     deleteBtn.addEventListener('click', (e) => {
+        const isArchived = archivedNotes.includes(noteEl);
+
+        if (isArchived) {
+            const index = archivedNotes.indexOf(noteEl);
+            if (index !== -1) {
+                archivedNotes.splice(index, 1);
+            }
+        } else {
+            const index = activeNotes.indexOf(noteEl);
+            if (index !== -1) {
+                activeNotes.splice(index, 1);
+            }
+        }
         noteEl.remove();
+        updateSummaryTable();
     });
 
     nameInputEl.addEventListener('input', (e) => {
@@ -77,6 +90,7 @@ function createNote({name, content, created, dates, category}) {
 
     categorySelectEl.addEventListener('change', (e) => {
         categoryEl.innerText = e.target.value;
+        updateSummaryTable()
     });
 
     contentInputEl.addEventListener('input', updateDatesList);
@@ -93,10 +107,12 @@ function createNote({name, content, created, dates, category}) {
             archiveNote(noteEl);
             box.classList.remove('fa-box');
             box.classList.add('fa-box-open');
+            updateSummaryTable()
         } else if (archivedNotes.includes(noteEl)) {
             unarchiveNote(noteEl);
             box.classList.toggle('fa-box-open');
             box.classList.toggle('fa-box');
+            updateSummaryTable()
         }
     });
 
@@ -105,22 +121,5 @@ function createNote({name, content, created, dates, category}) {
     activeNotes.push(noteEl);
 
     return noteEl;
-}
-
-function saveEditedNote() {
-    if (currentEditingNote) {
-        const index = activeNotes.indexOf(currentEditingNote);
-        if (index !== -1) {
-            const updatedNote = createNote({
-                name: currentEditingNote.querySelector('#note-name').innerText,
-                content: currentEditingNote.querySelector('#note-content').innerText,
-                created: currentEditingNote.querySelector('#note-created').innerText,
-                dates: currentEditingNote.querySelector('#note-dates').innerText,
-                category: currentEditingNote.querySelector('#note-category').innerText,
-            });
-            activeNotes[index] = updatedNote;
-            currentEditingNote = null;
-        }
-    }
 }
 

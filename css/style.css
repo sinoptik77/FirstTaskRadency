@@ -1,12 +1,69 @@
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
     background-color: #FFFFFF;
     font-family: "Open Sans", sans-serif;
+}
+
+.table-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.status {
+    width: 30%;
+    overflow-x: hidden;
+    margin: 0 4px;
+    word-wrap: break-word;
+}
+
+.table-category {
+    width: 40%;
+    overflow-x: hidden;
+    margin: 0 4px;
+    word-wrap: break-word;
+}
+
+.table-header {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    margin: 4px;
+    background-color: #999999;
+    max-width: 1200px;
+    height: 40px;
+}
+
+.table-status {
+    width: 30%;
+    overflow-x: hidden;
+    margin: 0 4px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.table-name {
+    width: 40%;
+    overflow-x: hidden;
+    margin: 0 4px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.table-style {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    margin: 4px;
+    height: 40px;
+    max-width: 1200px;
+    background-color: #E8EAF5;
 }
 
 .container {
@@ -53,6 +110,7 @@ body {
     box-shadow: 0 3px 5px rgba(0, 0, 0, .1);
     transition: .3s;
 }
+
 .note-edit:hover {
     background: #2EE59D;
     box-shadow: 0 5px 8px rgba(46, 229, 157, .4);
@@ -136,8 +194,10 @@ body {
 }
 
 .notes {
-    display: grid;
-    flex-wrap: wrap;
+    display:flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 480px;
 }
 
 .note {
@@ -148,6 +208,7 @@ body {
     height: 80px;
     max-width: 1200px;
     background-color: #E8EAF5;
+    flex-shrink: 0;
 }
 
 .note-add {
@@ -178,39 +239,6 @@ body {
     color: white;
 }
 
-/*.note-delete {
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    margin: 10px 20px;
-    padding: 10px 30px;
-    position: relative;
-    border: 2px solid #f1c40f;
-    color: #f1c40f;
-    font-family: 'Montserrat', sans-serif;
-    transition: .4s;
-}
-
-.note-delete:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    border: 2px solid rgba(0, 0, 0, 0);
-    transition: .4s;
-}
-
-.note-delete:hover:after {
-    border-color: #f1c40f;
-    width: calc(100% - 10px);
-    height: calc(100% + 10px);
-}*/
-
 .hidden {
     display: none;
 }
@@ -239,6 +267,8 @@ body {
 }
 
 .archived-notes {
-    display: grid;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 480px;
 }

@@ -20,7 +20,10 @@ addBtn.addEventListener('click', (e) => {
         content: "Type here",
         created: todayFormatted,
         dates: "",
-        category: "",
+        category: "Task",
     });
     notesEl.appendChild(el);
+
+    updateSummaryTable()
+
 });
