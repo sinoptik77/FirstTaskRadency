@@ -1,7 +1,5 @@
 const addBtn = document.querySelector('.note-add')
 
-const activeNotes = [];
-const archivedNotes = [];
 let currentEditingNote = null;
 
 function createNote({name, content, created, dates, category}) {
@@ -78,6 +76,7 @@ function createNote({name, content, created, dates, category}) {
         }
         noteEl.remove();
         updateSummaryTable();
+        saveData();
     });
 
     nameInputEl.addEventListener('input', (e) => {
@@ -91,6 +90,7 @@ function createNote({name, content, created, dates, category}) {
     categorySelectEl.addEventListener('change', (e) => {
         categoryEl.innerText = e.target.value;
         updateSummaryTable()
+        saveData();
     });
 
     contentInputEl.addEventListener('input', updateDatesList);
@@ -108,11 +108,13 @@ function createNote({name, content, created, dates, category}) {
             box.classList.remove('fa-box');
             box.classList.add('fa-box-open');
             updateSummaryTable()
+            saveData();
         } else if (archivedNotes.includes(noteEl)) {
             unarchiveNote(noteEl);
             box.classList.toggle('fa-box-open');
             box.classList.toggle('fa-box');
             updateSummaryTable()
+            saveData();
         }
     });
 

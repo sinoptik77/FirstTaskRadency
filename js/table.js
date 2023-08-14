@@ -25,13 +25,13 @@ function updateSummaryTable() {
     const quoteActive = table.querySelector('#quote-active');
     const quoteArchive = table.querySelector('#quote-archived');
 
-    activeNotes.forEach((noteEl) => {
-        const category = noteEl.querySelector('#note-category').innerText;
+    activeNotes.forEach((noteData) => {
+        const category = noteData.category;
         activeCategoriesCount[category]++;
     });
 
-    archivedNotes.forEach((noteEl) => {
-        const category = noteEl.querySelector('#note-category').innerText;
+    archivedNotes.forEach((noteData) => {
+        const category = noteData.category;
         archivedCategoriesCount[category]++;
     });
 

@@ -1,5 +1,3 @@
-const notesEl = document.querySelector('.notes');
-
 addBtn.addEventListener('click', (e) => {
 
     const today = new Date();
@@ -22,8 +20,9 @@ addBtn.addEventListener('click', (e) => {
         dates: "",
         category: "Task",
     });
+
     notesEl.appendChild(el);
 
     updateSummaryTable()
-
+    saveData();
 });
