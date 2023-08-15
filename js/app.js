@@ -1,8 +1,6 @@
 const addBtn = document.querySelector('.note-add')
 
-let currentEditingNote = null;
-
-function createNote({name, content, created, dates, category}) {
+function createNote({id, name, content, created, dates, category}) {
     const noteEl = document.createElement('div');
     noteEl.classList.add('note');
     noteEl.innerHTML = `
@@ -50,46 +48,100 @@ function createNote({name, content, created, dates, category}) {
     const datesEl = noteEl.querySelector('#note-dates')
     const box = noteEl.querySelector('#box')
 
-    editBtn.addEventListener('click', (e) => {
-        currentEditingNote = noteEl;
+    noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
+
+    editBtn.addEventListener('click', () => {
         nameEl.classList.toggle('hidden');
         contentEl.classList.toggle('hidden');
         nameInputEl.classList.toggle('hidden');
         contentInputEl.classList.toggle('hidden');
         categoryEl.classList.toggle('hidden');
         categorySelectEl.classList.toggle('hidden');
+        saveData();
     });
 
-    deleteBtn.addEventListener('click', (e) => {
-        const isArchived = archivedNotes.includes(noteEl);
-
+    deleteBtn.addEventListener('click', () => {
+        const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+        let isArchived = archivedIndex !== -1;
         if (isArchived) {
-            const index = archivedNotes.indexOf(noteEl);
-            if (index !== -1) {
-                archivedNotes.splice(index, 1);
-            }
+            archivedNotes.splice(archivedIndex, 1);
+            renderArchiveNotes()
         } else {
-            const index = activeNotes.indexOf(noteEl);
-            if (index !== -1) {
-                activeNotes.splice(index, 1);
-            }
+            const activeIndex = activeNotes.findIndex(note => note.id === id);
+            activeNotes.splice(activeIndex, 1);
+            renderActiveNotes()
         }
-        noteEl.remove();
         updateSummaryTable();
+        saveData();
+    });
+
+    archiveBtn.addEventListener('click', () => {
+        const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+        let isArchived = archivedIndex !== -1;
+        if (isArchived === false) {
+            archiveNote(noteEl, id);
+            box.classList.remove('fa-box');
+            box.classList.add('fa-box-open');
+            renderActiveNotes()
+        } else {
+            unarchiveNote(noteEl, id);
+            box.classList.toggle('fa-box-open');
+            box.classList.toggle('fa-box');
+            renderArchiveNotes()
+        }
+        updateSummaryTable()
         saveData();
     });
 
     nameInputEl.addEventListener('input', (e) => {
         nameEl.innerText = e.target.value;
+        const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+        let isArchived = archivedIndex !== -1;
+        if (isArchived) {
+            if (archivedIndex !== -1) {
+                archivedNotes[archivedIndex].name = e.target.value;
+            }
+        } else {
+            const activeIndex = activeNotes.findIndex(note => note.id === id);
+            if (activeIndex !== -1) {
+                activeNotes[activeIndex].name = e.target.value;
+            }
+        }
+        saveData();
     });
 
     contentInputEl.addEventListener('input', (e) => {
         contentEl.innerText = e.target.value;
+        const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+        let isArchived = archivedIndex !== -1;
+        if (isArchived) {
+            if (archivedIndex !== -1) {
+                archivedNotes[archivedIndex].content = e.target.value;
+            }
+        } else {
+            const activeIndex = activeNotes.findIndex(note => note.id === id);
+            if (activeIndex !== -1) {
+                activeNotes[activeIndex].content = e.target.value;
+            }
+        }
+        saveData();
     });
 
     categorySelectEl.addEventListener('change', (e) => {
         categoryEl.innerText = e.target.value;
-        updateSummaryTable()
+        const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+        let isArchived = archivedIndex !== -1;
+        const activeIndex = activeNotes.findIndex(note => note.id === id);
+        if (isArchived) {
+            if (archivedIndex !== -1) {
+                archivedNotes[archivedIndex].category = e.target.value;
+            }
+        } else {
+            if (activeIndex !== -1) {
+                activeNotes[activeIndex].category = e.target.value;
+            }
+        }
+        updateSummaryTable();
         saveData();
     });
 
@@ -100,27 +152,21 @@ function createNote({name, content, created, dates, category}) {
         let datesFromContent = contentEl.innerText;
         const dateRegex = /\d{2}\.\d{2}\.\d{4}/g;
         datesEl.innerText = datesFromContent.match(dateRegex);
-    }
-
-    archiveBtn.addEventListener('click', (e) => {
-        if (activeNotes.includes(noteEl)) {
-            archiveNote(noteEl);
-            box.classList.remove('fa-box');
-            box.classList.add('fa-box-open');
-            updateSummaryTable()
-            saveData();
-        } else if (archivedNotes.includes(noteEl)) {
-            unarchiveNote(noteEl);
-            box.classList.toggle('fa-box-open');
-            box.classList.toggle('fa-box');
-            updateSummaryTable()
-            saveData();
+        let importantDates = datesFromContent.match(dateRegex);
+        const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+        let isArchived = archivedIndex !== -1;
+        if (isArchived) {
+            if (archivedIndex !== -1) {
+                archivedNotes[archivedIndex].dates = importantDates;
+            }
+        } else {
+            const activeIndex = activeNotes.findIndex(note => note.id === id);
+            if (activeIndex !== -1) {
+                activeNotes[activeIndex].dates = importantDates;
+            }
         }
-    });
-
-    noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
-
-    activeNotes.push(noteEl);
+        saveData();
+    }
 
     return noteEl;
 }

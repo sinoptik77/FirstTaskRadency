@@ -1,28 +1,24 @@
-addBtn.addEventListener('click', (e) => {
-
+addBtn.addEventListener('click', () => {
     const today = new Date();
     const year = today.getFullYear().toString();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
+    let month = (today.getMonth() + 1).toString().padStart(2, '0');
+    let day = today.getDate().toString().padStart(2, '0');
+    const todayFormatted = `${day}.${month}.${year}`;
 
-    if (month.toString().length < 2) {
-        month = `0` + month.toString();
-    }
+    const noteId = Date.now();
 
-    if (day.toString().length < 2) {
-        day = `0` + day.toString();
-    }
-    let todayFormatted = day + '.' + month + '.' + year;
-    const el = createNote({
+    const newNote = {
+        id: noteId,
         name: "Note",
         content: "Type here",
         created: todayFormatted,
         dates: "",
         category: "Task",
-    });
+    };
 
-    notesEl.appendChild(el);
+    activeNotes.push(newNote);
 
-    updateSummaryTable()
     saveData();
+    renderActiveNotes();
+    updateSummaryTable();
 });

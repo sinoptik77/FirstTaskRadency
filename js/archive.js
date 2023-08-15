@@ -1,23 +1,20 @@
 const switchBtn = document.querySelector('.note-switch');
 
-const archivePage = document.querySelector('#archived-notes');
-const activePage = document.querySelector('#active-notes');
-
 switchBtn.addEventListener('click', (e) => {
-    archivePage.classList.toggle('hidden');
-    activePage.classList.toggle('hidden');
     if (switchBtn.innerText === 'Go to archive') {
         switchBtn.innerText = 'Go to active'
+        renderArchiveNotes()
     } else {
         switchBtn.innerText = 'Go to archive'
+        renderActiveNotes()
     }
 })
 
-function archiveNote(noteEl) {
-    const index = activeNotes.indexOf(noteEl);
+function archiveNote(noteEl, id) {
+    const index = activeNotes.findIndex(note => note.id === id);
     if (index !== -1) {
-        activeNotes.splice(index, 1);
-        archivedNotes.push(noteEl);
+        const archivedItem = activeNotes.splice(index, 1)[0];
+        archivedNotes.push(archivedItem);
         const archivedContainer = document.querySelector('.archived-notes');
         const archiveBtn = noteEl.querySelector('.note-archive');
         noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
@@ -25,8 +22,8 @@ function archiveNote(noteEl) {
     }
 }
 
-function unarchiveNote(noteEl) {
-    const index = archivedNotes.indexOf(noteEl);
+function unarchiveNote(noteEl, id) {
+    const index = archivedNotes.findIndex(note => note.id === id);
     if (index !== -1) {
         archivedNotes.splice(index, 1);
         activeNotes.push(noteEl);
