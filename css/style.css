@@ -239,6 +239,20 @@ body {
     color: white;
 }
 
+.add-category {
+    padding: 6px 9px;
+    margin: 8px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-color: #4CAF50;
+    background-color: #FFFFFF;
+}
+
+.add-category:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
 .hidden {
     display: none;
 }

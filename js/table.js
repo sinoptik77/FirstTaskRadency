@@ -44,4 +44,5 @@ function updateSummaryTable() {
     quoteActive.innerHTML = activeCategoriesCount.Quote;
     quoteArchive.innerHTML = archivedCategoriesCount.Quote;
 
+
 }

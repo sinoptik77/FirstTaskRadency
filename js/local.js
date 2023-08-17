@@ -1,6 +1,8 @@
 const activeNotes = [];
 const archivedNotes = [];
 
+let selectPage = "Active";
+
 const notesEl = document.querySelector('.notes');
 
 window.addEventListener('load', () => {

@@ -1,7 +1,9 @@
 const addBtn = document.querySelector('.note-add')
 
 function createNote({id, name, content, created, dates, category}) {
+
     const noteEl = document.createElement('div');
+
     noteEl.classList.add('note');
     noteEl.innerHTML = `
     <div class="note-style">
@@ -31,8 +33,12 @@ function createNote({id, name, content, created, dates, category}) {
         <button class="note-archive">
         <i id="box" class="fa-solid fa-box"></i>
         </button>
-        <button class="note-edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="note-delete"><i class="fa-solid fa-trash"></i></button>
+        <button class="note-edit">
+        <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button class="note-delete">
+        <i class="fa-solid fa-trash"></i>
+        </button>
     </div>
   `;
 
@@ -50,6 +56,17 @@ function createNote({id, name, content, created, dates, category}) {
 
     noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
 
+    const archivedIndex = archivedNotes.findIndex(note => note.id === id);
+    let isArchived = archivedIndex !== -1;
+
+    if (isArchived) {
+        box.classList.remove('fa-box');
+        box.classList.add('fa-box-open');
+    } else {
+        box.classList.remove('fa-box-open');
+        box.classList.add('fa-box');
+    }
+
     editBtn.addEventListener('click', () => {
         nameEl.classList.toggle('hidden');
         contentEl.classList.toggle('hidden');
@@ -65,11 +82,11 @@ function createNote({id, name, content, created, dates, category}) {
         let isArchived = archivedIndex !== -1;
         if (isArchived) {
             archivedNotes.splice(archivedIndex, 1);
-            renderArchiveNotes()
+            renderPage();
         } else {
             const activeIndex = activeNotes.findIndex(note => note.id === id);
             activeNotes.splice(activeIndex, 1);
-            renderActiveNotes()
+            renderPage();
         }
         updateSummaryTable();
         saveData();
@@ -78,16 +95,13 @@ function createNote({id, name, content, created, dates, category}) {
     archiveBtn.addEventListener('click', () => {
         const archivedIndex = archivedNotes.findIndex(note => note.id === id);
         let isArchived = archivedIndex !== -1;
+        console.log(isArchived)
         if (isArchived === false) {
             archiveNote(noteEl, id);
-            box.classList.remove('fa-box');
-            box.classList.add('fa-box-open');
-            renderActiveNotes()
+            renderPage();
         } else {
             unarchiveNote(noteEl, id);
-            box.classList.toggle('fa-box-open');
-            box.classList.toggle('fa-box');
-            renderArchiveNotes()
+            renderPage();
         }
         updateSummaryTable()
         saveData();

@@ -17,3 +17,11 @@ function renderArchiveNotes() {
         notesEl.appendChild(el);
     });
 }
+
+function renderPage() {
+    if (selectPage === "Active") {
+        renderActiveNotes()
+    } else if (selectPage === "Archive") {
+        renderArchiveNotes()
+    }
+}
