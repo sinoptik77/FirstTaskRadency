@@ -14,6 +14,8 @@ addCategoryBtn.addEventListener('click', () => {
             alert('Category already exists');
         }
         newCategoryInput.value = '';
+    } else {
+        alert('You have not entered data');
     }
     renderPage();
 });

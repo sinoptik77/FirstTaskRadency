@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
@@ -16,6 +18,9 @@
     <title>Notes App</title>
 </head>
 <body>
+<div id="stars"></div>
+<div id="stars2"></div>
+<div id="stars3"></div>
 <div class="container">
     <div class="header">
         <div class="note-style-Header">Name</div>
@@ -38,7 +43,7 @@
 </div>
 <div class="button-container">
     <button class="note-switch" type="button">Go to archive</button>
-    <input id="new-category-input" type="text" placeholder="Enter a new category">
+    <input id="new-category-input" type="text" class="form-style" placeholder="Enter a new category">
     <button id="add-category-btn" class="add-category">Add Category</button>
     <div class="delete-category-div"></div>
     <button id="delete-category-btn" class="delete-category">Delete Category</button>

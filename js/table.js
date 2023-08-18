@@ -1,5 +1,4 @@
 function updateSummaryTable() {
-
     const activeCategoriesCount = {
         'Task': 0,
         'Random Thought': 0,
@@ -14,17 +13,6 @@ function updateSummaryTable() {
         'Quote': 0,
     };
 
-    const table = document.querySelector('.table-container');
-
-    const taskActive = table.querySelector('#task-active');
-    const taskArchive = table.querySelector('#task-archived')
-    const randomThoughtActive = table.querySelector('#random-thought-active');
-    const randomThoughtArchive = table.querySelector('#random-thought-archived');
-    const ideaActive = table.querySelector('#idea-active');
-    const ideaArchive = table.querySelector('#idea-archived');
-    const quoteActive = table.querySelector('#quote-active');
-    const quoteArchive = table.querySelector('#quote-archived');
-
     activeNotes.forEach((noteEl) => {
         const category = noteEl.category;
         activeCategoriesCount[category]++;
@@ -35,14 +23,22 @@ function updateSummaryTable() {
         archivedCategoriesCount[category]++;
     });
 
-    taskActive.innerHTML = activeCategoriesCount.Task;
-    taskArchive.innerHTML = archivedCategoriesCount.Task;
-    randomThoughtActive.innerHTML = activeCategoriesCount["Random Thought"];
-    randomThoughtArchive.innerHTML = archivedCategoriesCount["Random Thought"];
-    ideaActive.innerHTML = activeCategoriesCount.Idea;
-    ideaArchive.innerHTML = archivedCategoriesCount.Idea;
-    quoteActive.innerHTML = activeCategoriesCount.Quote;
-    quoteArchive.innerHTML = archivedCategoriesCount.Quote;
+    const table = document.querySelector('.table-container');
 
+    for (const category in activeCategoriesCount) {
+        const activeCount = activeCategoriesCount[category];
+        const activeCell = table.querySelector(`#${category.toLowerCase().replace(' ', '-')}-active`);
+        if (activeCount !== null && !isNaN(activeCount)) {
+            activeCell.textContent = activeCount;
+        }
+    }
 
+    for (const category in archivedCategoriesCount) {
+        const archiveCount = archivedCategoriesCount[category];
+        const archivedCell = table.querySelector(`#${category.toLowerCase().replace(' ', '-')}-archived`);
+        if (archiveCount !== null && !isNaN(archiveCount)) {
+            archivedCell.textContent = archiveCount;
+        }
+    }
 }
+

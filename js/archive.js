@@ -2,12 +2,12 @@ const switchBtn = document.querySelector('.note-switch');
 
 
 switchBtn.addEventListener('click', (e) => {
-    if (switchBtn.innerText === 'Go to archive') {
-        switchBtn.innerText = 'Go to active'
+    if (switchBtn.innerText === 'GO TO ARCHIVE') {
+        switchBtn.innerText = 'GO TO ACTIVE'
         selectPage = "Archive";
         renderPage();
     } else {
-        switchBtn.innerText = 'Go to archive'
+        switchBtn.innerText = 'GO TO ARCHIVE'
         selectPage = "Active";
         renderPage();
     }

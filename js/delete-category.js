@@ -26,7 +26,6 @@ function deleteList() {
 
 deleteBtn.addEventListener('click', () => {
     const selectedCategory = deleteCategoryEl.value;
-
     if (selectedCategory) {
         const index = categories.indexOf(selectedCategory);
         if (index !== -1) {
@@ -35,7 +34,8 @@ deleteBtn.addEventListener('click', () => {
             saveData();
             updateSummaryTable();
         }
-    } else {
-        alert('Nothing to delete');
+    }
+    if (selectedCategory === "Task" || "Random Thought" || "Idea" || "Quote") {
+        alert('This category cannot be deleted');
     }
 });
