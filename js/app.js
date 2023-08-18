@@ -53,6 +53,7 @@ function createNote({id, name, content, created, dates, category}) {
     const categorySelectEl = noteEl.querySelector('#note-select-categories')
     const datesEl = noteEl.querySelector('#note-dates')
     const box = noteEl.querySelector('#box')
+    const categorySelect = noteEl.querySelector('#note-select-categories');
 
     noteEl.querySelector('.main-buttons').appendChild(archiveBtn);
 
@@ -66,6 +67,13 @@ function createNote({id, name, content, created, dates, category}) {
         box.classList.remove('fa-box-open');
         box.classList.add('fa-box');
     }
+
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+    });
 
     editBtn.addEventListener('click', () => {
         nameEl.classList.toggle('hidden');
@@ -95,7 +103,6 @@ function createNote({id, name, content, created, dates, category}) {
     archiveBtn.addEventListener('click', () => {
         const archivedIndex = archivedNotes.findIndex(note => note.id === id);
         let isArchived = archivedIndex !== -1;
-        console.log(isArchived)
         if (isArchived === false) {
             archiveNote(noteEl, id);
             renderPage();

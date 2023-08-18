@@ -1,5 +1,6 @@
 const activeNotes = [];
 const archivedNotes = [];
+const categories = [];
 
 let selectPage = "Active";
 
@@ -14,11 +15,13 @@ window.addEventListener('load', () => {
 function saveData() {
     localStorage.setItem('activeNotes', JSON.stringify(activeNotes));
     localStorage.setItem('archivedNotes', JSON.stringify(archivedNotes));
+    localStorage.setItem('categories', JSON.stringify(categories))
 }
 
 function loadData() {
     const activeNotesData = localStorage.getItem('activeNotes');
     const archivedNotesData = localStorage.getItem('archivedNotes');
+    const categoriesData = localStorage.getItem('categories');
 
     if (activeNotesData) {
         activeNotes.push(...JSON.parse(activeNotesData));
@@ -27,5 +30,10 @@ function loadData() {
     if (archivedNotesData) {
         archivedNotes.push(...JSON.parse(archivedNotesData));
     }
+
+    if (categoriesData) {
+        categories.push(...JSON.parse(categoriesData));
+    }
+
 }
 

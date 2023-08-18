@@ -7,6 +7,7 @@ function renderActiveNotes() {
         const el = createNote(noteData);
         notesEl.appendChild(el);
     });
+    deleteList();
 }
 
 function renderArchiveNotes() {
@@ -16,6 +17,7 @@ function renderArchiveNotes() {
         const el = createNote(noteData);
         notesEl.appendChild(el);
     });
+    deleteList();
 }
 
 function renderPage() {
@@ -24,4 +26,5 @@ function renderPage() {
     } else if (selectPage === "Archive") {
         renderArchiveNotes()
     }
+    deleteList();
 }
