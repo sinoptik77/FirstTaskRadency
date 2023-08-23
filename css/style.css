@@ -16,6 +16,8 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    max-height: 250px;
 }
 
 .status {
@@ -33,12 +35,12 @@ body {
 }
 
 .table-header {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     padding: 8px;
-    margin: 4px;
     background-color: #999999;
-    max-width: 1200px;
     height: 50px;
 }
 
@@ -75,6 +77,8 @@ body {
 }
 
 .note-style {
+    resize: none;
+    height: 78px;
     width: 27%;
     overflow-x: hidden;
     margin: 0 8px;
@@ -202,6 +206,9 @@ body {
     flex-direction: column;
     overflow: auto;
     height: 480px;
+    transition: all 600ms ease-out;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 .note {
@@ -321,12 +328,13 @@ body {
 .button-container {
     background-color: #2b2e38;
     display: flex;
+    padding: 5px 15px 5px 15px;
     justify-content: space-between;
     flex-direction: row;
     max-width: 1200px;
     height: 60px;
     margin: 0 auto;
-    align-items: center
+    align-items: center;
 }
 
 .header {
@@ -349,6 +357,12 @@ body {
     flex-direction: column;
     overflow: auto;
     height: 480px;
+}
+
+textarea {
+    height: 70px;
+    width: 269px;
+    resize: none;
 }
 
 .form-style {
@@ -437,3 +451,54 @@ body{
         transform: translateY(0px); }
     to {
         transform: translateY(-2000px); } }
+
+.checkbox:checked ~ .container .notes {
+    transform: rotateY(180deg);
+}
+
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked){
+    display: none;
+}
+
+.checkbox:checked + label,
+.checkbox:not(:checked) + label{
+    position: relative;
+    display: block;
+    text-align: center;
+    width: 60px;
+    height: 16px;
+    border-radius: 8px;
+    padding: 0;
+    margin: 10px auto;
+    cursor: pointer;
+    background-color: #ffeba7;
+}
+.checkbox:checked + label:before,
+.checkbox:not(:checked) + label:before{
+    position: absolute;
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: #ffeba7;
+    background-color: #020305;
+    font-family: 'unicons';
+    content: '\eb4f';
+    z-index: 20;
+    top: -10px;
+    left: -10px;
+    line-height: 36px;
+    text-align: center;
+    font-size: 24px;
+    transition: all 0.5s ease;
+}
+.checkbox:checked + label:before {
+    transform: translateX(44px) rotate(-270deg);
+}
+
+.container {
+    transition: all 600ms ease-out;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}

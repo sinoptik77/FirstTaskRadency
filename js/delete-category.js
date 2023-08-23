@@ -2,7 +2,6 @@ const deleteCategoryEl = document.createElement('select');
 const deleteEl = document.querySelector('.delete-category-div');
 const deleteBtn = document.getElementById('delete-category-btn');
 function deleteList() {
-    deleteCategoryEl.innerText = 'Choose category to delete';
     deleteCategoryEl.id = "note-select-categories";
     deleteCategoryEl.name = "categories";
 
@@ -26,6 +25,7 @@ function deleteList() {
 
 deleteBtn.addEventListener('click', () => {
     const selectedCategory = deleteCategoryEl.value;
+    const categoriesNotAllowedToDelete = ["Task", "Random Thought", "Idea", "Quote"];
     if (selectedCategory) {
         const index = categories.indexOf(selectedCategory);
         if (index !== -1) {
@@ -35,7 +35,8 @@ deleteBtn.addEventListener('click', () => {
             updateSummaryTable();
         }
     }
-    if (selectedCategory === "Task" || "Random Thought" || "Idea" || "Quote") {
+
+    if (categoriesNotAllowedToDelete.includes(selectedCategory)) {
         alert('This category cannot be deleted');
     }
 });

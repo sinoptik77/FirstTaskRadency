@@ -3,8 +3,8 @@ const addBtn = document.querySelector('.note-add')
 function createNote({id, name, content, created, dates, category}) {
 
     const noteEl = document.createElement('div');
-
     noteEl.classList.add('note');
+
     noteEl.innerHTML = `
     <div class="note-style">
       <p id="note-name">${name}</p>
@@ -26,9 +26,9 @@ function createNote({id, name, content, created, dates, category}) {
         <p id="note-content">${content}</p>
         <textarea id="note-content-textarea" class="hidden">${content}</textarea>
     </div>
-    <div class="note-styleB">
-        <p id="note-dates">${dates}</p>
-    </div>
+    ${dates !== null ?
+        `<div class="note-styleB"><p id="note-dates">${dates}</p></div>` :
+        `<div class="note-styleB"><p id="note-dates"></p></div>`}
     <div class="main-buttons">
         <button class="note-archive">
         <i id="box" class="fa-solid fa-box"></i>

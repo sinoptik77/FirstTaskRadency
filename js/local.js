@@ -4,6 +4,7 @@ const categories = [];
 
 let selectPage = "Active";
 
+const tablesEl = document.querySelector('.table-container')
 const notesEl = document.querySelector('.notes');
 
 window.addEventListener('load', () => {
