@@ -1,7 +1,7 @@
 const activeNotes = [];
 const archivedNotes = [];
 const categories = [];
-const defaultCategories = ['Task', 'Random Thought', 'Idea', 'Quote'];
+const defaultCategories = ["Task", "Random Thought", "Idea", "Quote"];
 
 let selectPage = "Active";
 

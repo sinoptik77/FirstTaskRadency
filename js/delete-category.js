@@ -22,7 +22,7 @@ function deleteList() {
 deleteBtn.addEventListener('click', () => {
     const selectedCategory = deleteCategoryEl.value;
     const categoriesNotAllowedToDelete = ["Task", "Random Thought", "Idea", "Quote"];
-    if (selectedCategory) {
+    if (!categoriesNotAllowedToDelete.includes(selectedCategory)) {
         const index = categories.indexOf(selectedCategory);
         if (index !== -1) {
             categories.splice(index, 1);
@@ -30,9 +30,7 @@ deleteBtn.addEventListener('click', () => {
             saveData();
             updateSummaryTable();
         }
-    }
-
-    if (categoriesNotAllowedToDelete.includes(selectedCategory)) {
+    } else {
         alert('This category cannot be deleted');
     }
 });
