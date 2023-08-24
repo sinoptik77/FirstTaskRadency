@@ -77,6 +77,8 @@ body {
 }
 
 .note-style {
+    display: flex;
+    align-items: center;
     resize: none;
     height: 78px;
     width: 27%;

@@ -6,10 +6,6 @@ function deleteList() {
     deleteCategoryEl.name = "categories";
 
     deleteCategoryEl.innerHTML = `
-    <option value="Task">Task</option>
-    <option value="Random Thought">Random Thought</option>
-    <option value="Idea">Idea</option>
-    <option value="Quote">Quote</option>
 `;
 
     categories.forEach(category => {

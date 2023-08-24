@@ -16,10 +16,6 @@ function createNote({id, name, content, created, dates, category}) {
     <div class="note-styleB">
         <p id="note-category">${category}</p>
         <select id="note-select-categories" class="hidden" name="categories">
-            <option value="Task">Task</option>
-            <option value="Random Thought">Random Thought</option>
-            <option value="Idea">Idea</option>
-            <option value="Quote">Quote</option>
         </select>
     </div>
     <div class="note-style">

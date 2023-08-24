@@ -1,4 +1,7 @@
+const table = document.querySelector('.table-container');
+
 function updateSummaryTable() {
+
     const activeCategoriesCount = {
         'Task': 0,
         'Random Thought': 0,
@@ -18,14 +21,6 @@ function updateSummaryTable() {
         archivedCategoriesCount[category] = 0;
     });
 
-    const categoryObjects = categories.map(category => ({
-        name: category,
-        active: activeCategoriesCount[category],
-        archived: archivedCategoriesCount[category]
-    }));
-
-    console.log(archivedCategoriesCount, activeCategoriesCount, categories, activeNotes, archivedNotes, categoryObjects)
-
     activeNotes.forEach((noteEl) => {
         const category = noteEl.category;
         activeCategoriesCount[category]++;
@@ -36,8 +31,13 @@ function updateSummaryTable() {
         archivedCategoriesCount[category]++;
     });
 
-    const table = document.querySelector('.table-container');
+    const categoryObjects = categories.map(category => ({
+        name: category,
+        active: activeCategoriesCount[category],
+        archived: archivedCategoriesCount[category]
+    }));
 
+    console.log(categoryObjects, categories)
 
     function createTable({name, active, archived}) {
 
@@ -60,11 +60,11 @@ function updateSummaryTable() {
             tablesEl.appendChild(el);
         });
     }
+
     renderTableElements();
 
     for (const category in activeCategoriesCount) {
         const activeCount = activeCategoriesCount[category];
-        console.log(activeCount.type, activeCount, activeCategoriesCount[category].type)
         const activeCell =
             table.querySelector(`#${category.toLowerCase().replace(' ', '-')}-active`);
             activeCell.textContent = activeCount;
@@ -77,4 +77,14 @@ function updateSummaryTable() {
             archivedCell.textContent = archiveCount;
     }
 }
+
+
+function initializeCategories() {
+    defaultCategories.forEach(category => {
+        if (!categories.includes(category)) {
+            categories.push(category);
+        }
+    });
+}
+
 
